@@ -1,0 +1,40 @@
+---
+title: "Getting started with ProximalOpt"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with ProximalOpt}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+# Proximal operators
+
+The soft-thresholding operator is the proximal operator of the L1 norm.
+
+```{r}
+library(ProximalOpt)
+soft_threshold(c(-3, -1, 0, 2), lambda = 1)
+```
+
+# LASSO on the synthetic Douala housing dataset
+
+The included housing observations are simulated for teaching purposes only.
+
+```{r}
+housing <- load_housing_data()
+X <- model.matrix(
+  ~ superficie_m2 + nombre_chambres + age_logement_ans +
+    distance_centre_km + zone,
+  data = housing
+)[, -1, drop = FALSE]
+y <- housing$prix_millions_fcfa
+
+set.seed(2026)
+train <- sample(seq_len(nrow(housing)), 400)
+fit <- fista(X[train, , drop = FALSE], y[train], lambda = 1.2)
+head(predict(fit, X[-train, , drop = FALSE]))
+```

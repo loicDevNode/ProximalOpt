@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use ProximalOpt, please cite this software."
+title: "ProximalOpt"
+version: 0.1.0
+authors:
+  - family-names: Geoffroy
+    given-names: Loïc
+type: software

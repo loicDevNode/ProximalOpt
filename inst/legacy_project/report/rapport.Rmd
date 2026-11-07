@@ -1,0 +1,87 @@
+---
+title: "Algorithmes proximaux : du fondement mathématique à une application immobilière"
+author: "Loïc"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+# Introduction
+
+Les algorithmes proximaux permettent de minimiser des fonctions convexes qui peuvent être non différentiables. Ils sont notamment utiles en optimisation parcimonieuse, en traitement du signal et en apprentissage automatique.
+
+# 1. Problème d'optimisation
+
+On considère une fonction décomposée :
+
+\[
+F(x)=g(x)+h(x),
+\]
+
+où \(g\) est différentiable et \(h\) est convexe, éventuellement non lisse. L'itération de gradient proximal est :
+
+\[
+x_{k+1}=\operatorname{prox}_{\eta h}
+\left(x_k-\eta\nabla g(x_k)\right).
+\]
+
+# 2. Opérateur proximal
+
+\[
+\operatorname{prox}_{\lambda h}(v)=
+\arg\min_x\left\{h(x)+\frac{1}{2\lambda}\|x-v\|^2\right\}.
+\]
+
+Pour \(h(x)=|x|\), on obtient le seuillage doux :
+
+\[
+\operatorname{prox}_{\lambda|\cdot|}(v)
+=\operatorname{sign}(v)\max(|v|-\lambda,0).
+\]
+
+Cette opération peut annuler exactement certaines valeurs.
+
+# 3. Régression LASSO
+
+Le LASSO résout :
+
+\[
+\min_\beta\frac{1}{2n}\|y-X\beta\|_2^2+
+\lambda\|\beta\|_1.
+\]
+
+Le premier terme mesure l'erreur d'ajustement ; le second pénalise la taille des coefficients. Le proximal de la norme \(\ell_1\) est le seuillage doux appliqué coefficient par coefficient.
+
+# 4. Application : prix de logements à Douala
+
+Le jeu de données fourni est synthétique. Il contient 500 logements, des zones résidentielles, la superficie, le nombre de chambres, l'âge, la distance au centre et le prix en millions de FCFA.
+
+La cible est le prix. Les variables explicatives sont standardisées dans l'algorithme afin de rendre la pénalisation comparable entre colonnes.
+
+```{r, echo=TRUE}
+housing <- read.csv("../data/05_donnees_logements.csv")
+summary(housing$prix_millions_fcfa)
+```
+
+## Évaluation
+
+Le script principal répartit les observations en un jeu d'entraînement (80 %) et un jeu de test (20 %). Les métriques utilisées sont :
+
+- MAE : erreur absolue moyenne ;
+- RMSE : racine de l'erreur quadratique moyenne ;
+- \(R^2\) : part de la variabilité expliquée sur le jeu test.
+
+Les valeurs numériques sont produites par `R/05_cas_concret_logements.R` et enregistrées dans `results/`.
+
+# 5. Limites et précautions
+
+- Les observations sont simulées : les résultats ne représentent pas le marché immobilier réel.
+- Le paramètre \(\lambda\) influence le nombre de coefficients nuls et l'erreur de prédiction.
+- Une étude réelle devrait collecter des annonces ou transactions vérifiées, traiter les valeurs aberrantes et choisir \(\lambda\) par validation croisée.
+- Une association statistique ne démontre pas une causalité.
+
+# Conclusion
+
+Le cas immobilier illustre le passage de la théorie à une application : le gradient traite la partie lisse de la fonction objectif et l'opérateur proximal traite la pénalisation non différentiable. Le LASSO combine ainsi prédiction et sélection de variables.

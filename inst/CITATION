@@ -1,0 +1,10 @@
+citEntry(
+  entry = "Manual",
+  title = "ProximalOpt: Proximal Optimization Algorithms for Statistical Learning",
+  author = person(
+    given = "Loïc",
+    family = "Geoffroy"
+  ),
+  year = "2026",
+  note = "R package version 0.1.0"
+)

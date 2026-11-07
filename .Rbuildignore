@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.git$
+^\.github$
+^README\.Rmd$
+^data-raw$
+^CITATION\.cff$
+^CONTRIBUTING\.md$
