@@ -6,6 +6,7 @@ Authors@R: person("Loïc", "Geoffroy", role = c("aut", "cre"),
 Description: Educational and practical implementations of proximal operators,
     proximal gradient methods, ISTA, FISTA, and LASSO regression, with a
     reproducible synthetic housing case study based on Douala, Cameroon.
+    URL: https://loicdevnode.github.io/ProximalOpt/
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,3 +18,4 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.1.1
+URL: https://loicdevnode.github.io/ProximalOpt/

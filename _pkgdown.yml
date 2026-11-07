@@ -1,0 +1,21 @@
+url: https://loicdevnode.github.io/ProximalOpt/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [home, reference, articles]
+    right: [github]
+  components:
+    home:
+      text: Accueil
+    reference:
+      text: Fonctions
+    articles:
+      text: Tutoriels
+    github:
+      icon: fab fa-github
+      href: https://github.com/loicDevNode/ProximalOpt
+      aria-label: GitHub
+      
